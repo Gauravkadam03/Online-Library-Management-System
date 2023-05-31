@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/display.css' %}">
+    {% include "library_app/base.html" %}
+    <style>
+        body{
+            background-image:url("{% static 'images/lib.jpg' %}");
+        }
+        #jbt{
+          background-image: url("{% static 'images/book2.jpg' %}");
+          
+        }
+ 
+    </style>
+</head>
+<body >
+
+    {% include "library_app/navbar.html" %}
+      <br>
+      
+      <div class='jbt1'>
+      <div class="jumbotron" id="jbt" >
+        <h1 id="a">Book Details</h1>
+        <br>
+
+        <div class="table-responsive">
+
+            <table class="table" id="t" border="2px">
+
+              <thead>
+                <tr>
+
+                  
+                  <th class="th-lg">B_name</th>
+                  <th class="th-lg">A_name</th>
+                  <th class="th-lg">Submit_Date</th>
+                  <th class="th-lg">B_Category</th>
+
+                </tr>
+              </thead>
+
+              <tbody>
+                {% for i in data %}
+                <tr class="tr">
+                  
+                 <td>{{i.B_name}}</td>
+                  <td>{{i.A_name}}</td>
+                  <td>{{i.Date}}</td>
+                  <td>{{i.B_category}}</td>
+                </tr>
+                {% endfor %}
+               
+          
+            </table>
+            <!--Table-->
+          
+          </div>
+        
+           
+            <!-- Submit button -->
+            <!-- <button type="submit" class="btn btn-primary btn-block mb-4">Add Data</button> -->
+          
+            
+            <span class="lead" >
+              <a href="/display/" class="btn btn-primary " style="color: rgb(253, 253, 253); text-decoration: none; ">Go Back</a>
+              </span>
+            </div>
+          </form>
+          
+        </p>
+      </div>
+    </div>
+    {% include "library_app/footer.html" %}
+</body>
+</html>

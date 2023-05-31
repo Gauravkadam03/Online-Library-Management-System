@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="{% static 'css/form.css' %}">
+        {% include "library_app/base.html" %}
+        <style>
+            body{
+                background-image:url("{% static 'images/lib.jpg' %}");
+                background-color: azure;
+            }
+             /* #jbt{
+              background-image: url("{% static 'images/book.jpg' %}");
+            }  */
+        </style>
+    </head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light "> 
+    <a class="navbar-brand" href="#"> LOGIN PAGE</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+       
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+</li>
+      </ul>
+    </div>
+    </div>
+    <span class="navbar-text" id="lib">
+     <h3> Library Management System</h3>
+      </span>
+  </nav>
+<br><br>
+    
+        
+       
+    <div class='jbt1' style=" margin: 10px auto;
+    display: flex;
+    justify-content: center;
+    margin: 10px 10px 10px 10px;">
+        <div class="jumbotron" id="jbt" style="width: 600px; ">
+          <div style="color: rgba(14, 12, 12, 0.779); text-align: center;;">
+            <h1>  LOGIN </h1>
+        </div>
+        <br>
+        <br>
+            <form action="" method="post">{%csrf_token%}
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                  <input type="text" id="form1Example1" class="form-control" placeholder="Enter Admin Username" name="username" required/>
+                  <label class="form-label" for="form1Example1" style="color: black;">UserName</label>
+                </div>
+              
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                  <input type="password" id="form1Example2" class="form-control" placeholder="Enter password" name="password" required/>
+                  <label class="form-label" for="form1Example2" style="color: black;">Password</label>
+                </div>
+              
+                <!-- 2 column grid layout for inline styling -->
+              
+              
+                <!-- Submit button -->
+                <input type="submit" class="btn btn-primary btn-block" value="login">
+                <!-- <button type="submit" class="btn btn-primary btn-block" value="Login">Sign in</button> -->
+              </form>
+              <br><br>
+              <div class="row mb-4">
+                <div class="col d-flex justify-content-center">
+                  <!-- Checkbox -->
+                  <!-- <div class="form-check">
+                  </div> -->
+               
+            
+                <div class="d-flex justify-content links" >
+                Don't have an account? <a href='/signup/' style="color: rgb(65, 140, 190);" class="ml-2">Sign Up</a>
+                </div>
+              </div>
+              </div>
+              {% for i in messages %}
+              {{i}}
+              {% endfor %}
+        </div>
+      </div>
+    
+
+</body>
+</html>

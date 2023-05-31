@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/display.css' %}">
+    {% include "library_app/base.html" %}
+    <style>
+        body{
+            background-image:url("{% static 'images/lib.jpg' %}");
+        }
+        #jbt{
+          background-image: url("{% static 'images/students.jpg' %}");
+          
+        }
+ 
+    </style>
+</head>
+<body >
+  {% include "library_app/navbar.html" %}
+      <br>
+      
+      <div class='jbt1'>
+      <div class="jumbotron" id="jbt" >
+        <h1 id="a" class="text-primary">Student Details</h1>
+        <h3 id="a" style="background-color: rgba(0, 0, 0, 0.744);">Click on Student Name to Delete  Details</h3>
+        <br>
+        <!--Table-->
+        <div class="table-responsive">
+
+            <!--Table-->
+            <table class="table" id="t" border="2px">
+          
+                <!--Table head-->
+                <thead>
+                  <tr>
+                    <!-- <th>#</th> -->
+                    
+                    <th class="th-lg">S_id</th>
+                    <th class="th-lg">S_name</th>
+                    <th class="th-lg">Email_id</th>
+                    <th class="th-lg">D_of_join</th>
+  
+                  </tr>
+                </thead>
+                <!--Table head-->
+            
+                <!--Table body-->
+                <tbody>
+                  {% for i in data %}
+                  <tr class="tr">
+                    <td>{{i.id}}</td>
+                   <td><a href="/delete_s/{{i.id}}" class="tr1" style="color: aliceblue;">{{i.username}}</a></td>
+                   <td>{{i.email}}</td>
+                    <td>{{i.date_joined}}</td>
+                  </tr>
+                  {% endfor %}
+  
+              </table>
+            <!--Table-->
+          
+          </div>
+        
+           
+            <!-- Submit button -->
+            <!-- <button type="submit" class="btn btn-primary btn-block mb-4">Add Data</button> -->
+           
+            
+            <span class="lead" >
+              <a href="/index/" class="btn btn-primary " style="color: rgb(253, 253, 253); text-decoration: none; ">Go Back</a>
+              </span>
+            </div>
+          </form>
+          
+        </p>
+      </div>
+    </div>
+    {% include "library_app/footer.html" %}
+</body>
+</html>

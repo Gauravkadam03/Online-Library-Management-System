@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    {% include "library_app/base.html" %}
+    <style>
+        body{
+            background-image:url("{% static 'images/lib.jpg' %}");
+        }
+        #f{
+          color: aliceblue;
+        }
+        
+    </style>
+</head>
+<body >
+  {% include "library_app/navbar.html" %}
+    
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">
+        About Library Management System</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>`
+    </div>
+  
+    <div class="modal-body">
+      <p>Moving on, this library management system project in Python Django focuses mainly on dealing with adding books and records. Also, the system displays all the books . In addition, the system allows managing books by entering a name, author, date, and category. This project is based on Admin Panel.</p>        </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+     
+    </div>
+  </div>
+</div>
+</div>
+</li>
+        </ul>
+      </div>
+    
+    </nav>
+      <br>
+      <br>
+      <div class='jbt1' >
+      <div class="jumbotron" id="jbt">
+        <h1 class="display-4">Welcome {{request.user}}</h1>
+        <hr class="my-4">
+        <p  class="lead"><b>A simple project based on Library Management System that uses Python with Django Web Framework.</b></p>
+        <hr class="my-4">
+        {% if user.is_superuser == 1 %}
+        <p ><h2>For admin panel</h2></p>
+        <hr class="my-4">
+        <p class="lead">
+          <a class="btn btn-primary btn-lg" href="/form/" role="button">Add Data</a>
+        </p>
+        {% else %}
+        <p ><h2>For Student panel</h2></p>
+        <hr class="my-4">
+        <p class="lead">
+          <a class="btn btn-primary btn-lg" href="/display/" role="button">Show Books</a>
+        </p>
+        {% endif %} 
+
+      </div>
+    </div>
+    
+{% include "library_app/footer.html" %}
+
+
+</body>
+</html>
