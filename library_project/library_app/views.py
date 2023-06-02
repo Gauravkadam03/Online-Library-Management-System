@@ -8,14 +8,17 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,auth
 from datetime import date
 
+
+# Home Page before login
 def home(request):
     return render(request,'library_app/home.html')
 
-# Create your views here.
+# Home Page after login
 @login_required(login_url='/signin/')
 def index(request):
     return render(request,'library_app/index.html')
 
+# Adding book data for Books table
 @login_required(login_url='/signin/')
 def form(request):
     if request.method=='POST':
@@ -31,7 +34,7 @@ def form(request):
         return redirect('/display/')
     return render(request,'library_app/form.html')
 
-
+# Displaying book data 
 @login_required(login_url='/signin/')
 def display(request):
     data=book.objects.all()
@@ -47,6 +50,7 @@ def display(request):
         return render(request,'library_app/search_display.html',context1)
     return render(request,'library_app/display.html',context)
 
+# Displaying book data with a link to update it 
 @login_required(login_url='/signin/')
 def display_update(request):
     data=book.objects.all()
@@ -55,6 +59,7 @@ def display_update(request):
     }
     return render(request,'library_app/display_update.html',context)
 
+# By Book id updating the book data
 @login_required(login_url='/signin/')
 def update(request,j):
     data=book.objects.get(id=j)
@@ -76,6 +81,16 @@ def update(request,j):
 
     return render(request,'library_app/update.html',context)
 
+# Displaying book data with a link to Delete it 
+@login_required(login_url='/signin/')    
+def display_delete(request):
+    data=book.objects.all()
+    context={
+        'data':data
+    }
+    return render(request,'library_app/display_delete.html',context)
+
+# By Book id deleting the book data
 @login_required(login_url='/signin/')
 def delete(request,j):
     data=book.objects.get(id=j)
@@ -87,15 +102,7 @@ def delete(request,j):
         return redirect('/display/')
     return render(request,'library_app/delete.html',context)
 
-@login_required(login_url='/signin/')    
-def display_delete(request):
-    data=book.objects.all()
-    context={
-        'data':data
-    }
-    return render(request,'library_app/display_delete.html',context)
-
-
+# singnup view
 def signup(request):
     if request.user.is_authenticated:
         return redirect('/index/')
@@ -132,6 +139,7 @@ def signup(request):
     return render(request,'library_app/signup.html',{'form':form})
 
 
+# signin view
 def signin(request):
     if request.user.is_authenticated:
         return redirect('/index/')
@@ -147,11 +155,13 @@ def signin(request):
                 messages.info(request,'invalid credentials')
     return render(request,'library_app/a_login.html')
 
+# logout view
 @login_required(login_url='/signin/')
 def logout(request):
     auth.logout(request)
     return redirect('/signin/')
 
+# display students
 @login_required(login_url='/signin/')
 def display_students(request):
     data = User.objects.filter(is_staff=0)
@@ -164,13 +174,13 @@ def display_students(request):
         return render(request,'library_app/search_student.html',context1)
     return render(request,'library_app/display_students.html',{'data':data})
 
-
+# display student with delete button
 @login_required(login_url='/signin/')
 def delete_student(request):
     data = User.objects.filter(is_staff=0)
     return render(request,'library_app/delete_student.html',{'data':data})
 
-
+# delete student by getting his id
 @login_required(login_url='/signin/')
 def delete_s(request,j):
     data=User.objects.get(id=j)
@@ -186,6 +196,7 @@ def delete_s(request,j):
         return redirect('/display_stu/')
     return render(request,'library_app/del_std_d.html',context)
 
+# issue book
 @login_required(login_url='/signin/')
 def issue_b(request,s_id,b_name,s_name):
     a = issue_book(s_id=s_id ,s_name=s_name, b_name=b_name)
@@ -216,13 +227,13 @@ def issue_b(request,s_id,b_name,s_name):
                     return redirect('/index/')
     return render(request,'library_app/issue_b_disp.html',{'data':data})
 
-
+# display issue book to specific student
 @login_required(login_url='/signin/')
 def display_iss_b(request,s_id):
     data = i_b_data.objects.filter(s_id=s_id)
     return render(request,'library_app/accept_data.html',{'data':data})
 
-
+# admin and student navbar view issue books
 @login_required(login_url='/signin/')
 def dispaly_s_iss_b(request,v):
     if v == 0:
@@ -231,6 +242,7 @@ def dispaly_s_iss_b(request,v):
         data = issue_book.objects.filter(s_id=v)
     return render(request,'library_app/issue_b_disp.html',{'data':data})
 
+# view issued book by admin
 @login_required(login_url='/signin/')
 def accpeted_data(request,s_id,b_name,s_name):
     a = i_b_data(s_id=s_id ,b_name=b_name, s_name=s_name, Date=date.today())
@@ -240,16 +252,16 @@ def accpeted_data(request,s_id,b_name,s_name):
         if i.b_name == b_name:
             d = issue_book.objects.get(b_name=b_name)
             d.delete()
-    
     data = i_b_data.objects.all()
     return render(request,'library_app/accept_data.html',{'data':data})
 
+# admin view issued book to student
 @login_required(login_url='/signin/')
 def dis_accpeted_data(request):
     data = i_b_data.objects.all()
     return render(request,'library_app/accept_data.html',{'data':data})
     
-
+# student return book view
 @login_required(login_url='/signin/')
 def del_accpeted_data(request,b_name,s_id):
     data = i_b_data.objects.filter(b_name=b_name)
