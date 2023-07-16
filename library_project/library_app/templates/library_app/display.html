@@ -37,6 +37,7 @@
             <table class="table" id="t" border="2px">
               <thead>
                 <tr>
+                  <th  class="th-lg"></th>
                   <th class="th-lg">B_name</th>
                   <th class="th-lg">A_name</th>
                   <th class="th-lg">Publish_Date</th>
@@ -47,6 +48,7 @@
                 {% for i in data %}
                 <tr class="tr">
                   
+                 <td>{{ forloop.counter }}</td>
                  <td>{{i.B_name}}</td>
                   <td>{{i.A_name}}</td>
                   <td>{{i.Date}}</td>

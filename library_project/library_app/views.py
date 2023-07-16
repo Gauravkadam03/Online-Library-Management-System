@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,auth
-from datetime import date
+from datetime import date,timedelta
 
 
 # Home Page before login
@@ -16,8 +16,22 @@ def home(request):
 # Home Page after login
 @login_required(login_url='/signin/')
 def index(request):
-    return render(request,'library_app/index.html')
-
+    if request.user.is_staff == 1:
+        u_c=User.objects.filter(is_staff=0).count()
+        data=book.objects.all().count()
+        novel=book.objects.filter(B_category='Novel').count()
+        pro=book.objects.filter(B_category='Programming').count()
+        adve=book.objects.filter(B_category='Adventure').count()
+        act=book.objects.filter(B_category='Action').count()
+        b_r=issue_book.objects.all().count()
+        a_r=i_b_data.objects.all().count()
+        n_r = i_b_data.objects.filter(Fine__gt = 0).count()
+        return render(request,'library_app/index.html',{'u':u_c,'data':data,'nov':novel,'pro':pro,'adve':adve,'act':act,'b_r':b_r,'a_r':a_r,'n_r':n_r})
+    else:
+        b_r=issue_book.objects.filter(s_id=request.user.id).count()
+        a_r=i_b_data.objects.filter(s_id=request.user.id).count()
+        
+        return render(request,'library_app/index.html',{'b_r':b_r,'a_r':a_r})
 # Adding book data for Books table
 @login_required(login_url='/signin/')
 def form(request):
@@ -231,6 +245,17 @@ def issue_b(request,s_id,b_name,s_name):
 @login_required(login_url='/signin/')
 def display_iss_b(request,s_id):
     data = i_b_data.objects.filter(s_id=s_id)
+    
+    # to calculate fine 
+    for i in data :
+        l = str((i.exp_date)).split('-')
+        if (date.today() > date(int(l[0]),int(l[1]),int(l[2])) )  :
+            i.Fine = int(str(date.today() - date(int(l[0]),int(l[1]),int(l[2])))[:2]) * 5
+            i.save()
+        else:
+            i.Fine = 0
+            i.save()
+    
     return render(request,'library_app/accept_data.html',{'data':data})
 
 # admin and student navbar view issue books
@@ -240,12 +265,13 @@ def dispaly_s_iss_b(request,v):
         data = issue_book.objects.all()
     else:
         data = issue_book.objects.filter(s_id=v)
+    
     return render(request,'library_app/issue_b_disp.html',{'data':data})
 
 # view issued book by admin
 @login_required(login_url='/signin/')
 def accpeted_data(request,s_id,b_name,s_name):
-    a = i_b_data(s_id=s_id ,b_name=b_name, s_name=s_name, Date=date.today())
+    a = i_b_data(s_id=s_id ,b_name=b_name, s_name=s_name, Iss_Date=date.today() ,exp_date = date.today() + timedelta(days=1), Fine = 0)
     a.save()  
     d = issue_book.objects.filter(s_id=s_id)            
     for i in d:
@@ -259,6 +285,16 @@ def accpeted_data(request,s_id,b_name,s_name):
 @login_required(login_url='/signin/')
 def dis_accpeted_data(request):
     data = i_b_data.objects.all()
+    # to calculate fine 
+    for i in data :
+        l = str((i.exp_date)).split('-')
+        if (date.today() > date(int(l[0]),int(l[1]),int(l[2])) )  :
+            i.Fine = int(str(date.today() - date(int(l[0]),int(l[1]),int(l[2])))[:2]) * 5
+            i.save()
+        else:
+            i.Fine = 0
+            i.save()
+       
     return render(request,'library_app/accept_data.html',{'data':data})
     
 # student return book view
