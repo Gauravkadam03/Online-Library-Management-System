@@ -16,6 +16,7 @@ def home(request):
 # Home Page after login
 @login_required(login_url='/signin/')
 def index(request):
+    # for showing record of Books and Students
     if request.user.is_staff == 1:
         u_c=User.objects.filter(is_staff=0).count()
         data=book.objects.all().count()
