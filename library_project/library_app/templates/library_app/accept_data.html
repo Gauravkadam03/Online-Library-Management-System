@@ -40,7 +40,9 @@
                 <th class="th-lg">Student_id</th>
                 <th class="th-lg">Student_name</th>
                 <th class="th-lg">Book_name</th>
-                <th class="th-lg">Date</th>
+                <th class="th-lg">Issue_Date</th>
+                  <th class="th-lg">Expiry_Date</th>
+                  <th class="th-lg">Fine</th>
                
               </tr>
             </thead>
@@ -53,7 +55,9 @@
                <td>{{i.s_id}}</td>
                <td>{{i.s_name}}</td>
                <td>{{i.b_name}}</td>
-               <td>{{i.Date}}</td>
+               <td>{{i.Iss_Date}}</td>
+               <td>{{i.exp_date}}</td>
+               <td>{{i.Fine}}</td>
               </tr>
               {% endfor %}
 
@@ -71,8 +75,9 @@
                   <th class="th-lg">Student_id</th>
                   <th class="th-lg">Student_name</th>
                   <th class="th-lg">Book_name</th>
-                  <th class="th-lg">Date</th>
-                 
+                  <th class="th-lg">Issue_Date</th>
+                  <th class="th-lg">Expiry_Date</th>
+                  <th class="th-lg">Fine</th>
                 </tr>
               </thead>
               <!--Table head-->
@@ -84,9 +89,15 @@
                  <td>{{i.s_id}}</td>
                  <td>{{i.s_name}}</td>
                  <td>{{i.b_name}}</td>
-                 <td>{{i.Date}}</td>
+                 <td>{{i.Iss_Date}}</td>
+                 <td>{{i.exp_date}}</td>
+                 <td>{{i.Fine}}</td>
+                 {% if i.Fine > 0 %}
+                 <td><a class="btn btn-primary btn-lg" href="/del_accpeted_data/{{i.b_name}}/{{i.s_id}}">Pay</a></td>
+                 {% else %}
                  <td><a class="btn btn-primary btn-lg" href="/del_accpeted_data/{{i.b_name}}/{{i.s_id}}">return</a></td>
                 </tr>
+                {% endif %}
                 {% endfor %}
 
             </table>

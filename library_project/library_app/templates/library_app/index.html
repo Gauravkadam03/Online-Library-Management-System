@@ -56,14 +56,37 @@
         <hr class="my-4">
         <p  class="lead"><b>A simple project based on Library Management System that uses Python with Django Web Framework.</b></p>
         <hr class="my-4">
+        <p class="lead">
+          <h3>Records</h3>
+        </p>
         {% if user.is_superuser == 1 %}
-        <p ><h2>For admin panel</h2></p>
+        <!-- <hr class="my-4"> -->
+        <p class="lead">
+          <b>Total Students :-<u> {{u}}</u></b><br>
+          
+        </p>
         <hr class="my-4">
         <p class="lead">
-          <a class="btn btn-primary btn-lg" href="/form/" role="button">Add Data</a>
+          <b>Total Books :-<u> {{data}}</u></b><br>
+          Novel :- <u>{{nov}}</u>  &nbsp Adventure :-<u>{{adve}}</u>  &nbsp Programming :- <u>{{pro}}</u> &nbsp Action :- <u>{{act}}</u>
+        </p>
+        <hr class="my-4">
+        <p class="lead">
+          <b>Total Book Requests :-<u> {{b_r}}</u></b><br>
+          <b>Accepted Requests :-<u> {{a_r}}</u></b><br>
+          <b>Not Returned :-<u> {{n_r}}</u></b><br>
+        </p>
+        <hr class="my-4">
+        <p class="lead">
+          <a class="btn btn-primary btn-lg" href="/form/" role="button">Add Books</a>
         </p>
         {% else %}
-        <p ><h2>For Student panel</h2></p>
+        <hr class="my-4">
+        <p class="lead">
+          <b>Total Book Requests :-<u> {{b_r}}</u></b><br>
+          <b>Issued Books :-<u> {{a_r}}</u></b><br>
+        </p>
+        <!-- <p ><h2>For Student panel</h2></p> -->
         <hr class="my-4">
         <p class="lead">
           <a class="btn btn-primary btn-lg" href="/display/" role="button">Show Books</a>

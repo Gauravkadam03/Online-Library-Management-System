@@ -20,4 +20,6 @@ class i_b_data(models.Model):
     s_id = models.IntegerField()
     s_name = models.CharField(max_length=25)
     b_name = models.CharField(max_length=25)
-    Date=models.CharField(max_length=25)
+    Iss_Date=models.DateField(max_length=25)
+    exp_date = models.DateField(max_length=25,null=True)
+    Fine = models.IntegerField(null=True)
